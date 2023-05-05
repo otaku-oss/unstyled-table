@@ -13,19 +13,13 @@ yarn install
 Build the library:
 
 ```bash
-cd packages/my-lib && yarn build
+cd packages/headless-react-table && yarn build
 ```
 
 Run the development server of the test project:
 
 ```bash
-cd sites/my-site && yarn dev
+cd sites/vite-testing && yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-If you want to start the storybook server, run:
-
-```bash
-cd packages/my-lib && yarn storybook
-```
