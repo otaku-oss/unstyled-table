@@ -1,4 +1,4 @@
-# Create a React Library with TypeScript and Vite
+# Sim
 
 This repository is an example of a React library created with TypeScript and Vite.
 
@@ -13,7 +13,7 @@ yarn install
 Build the library:
 
 ```bash
-cd packages/headless-react-table && yarn build
+cd packages/unstyled-table && yarn build
 ```
 
 Run the development server of the test project:

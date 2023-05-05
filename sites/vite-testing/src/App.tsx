@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Table } from 'headless-react-table';
+import { Table } from 'unstyled-table';
 import { makeData, type Person } from './lib/makeData';
 import type { ColumnDef } from '@tanstack/react-table';
 

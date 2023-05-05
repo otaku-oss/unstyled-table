@@ -1,6 +1,6 @@
 {
-    "name": "headless-react-table",
-    "version": "0.0.0",
+    "name": "unstyled-table",
+    "version": "0.0.1",
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
