@@ -1,0 +1,50 @@
+{
+    "name": "headless-react-table",
+    "version": "0.0.0",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\""
+    },
+    "dependencies": {
+        "@tanstack/match-sorter-utils": "^8.8.4",
+        "@tanstack/react-table": "^8.9.0",
+        "@types/react": "^18.2.4",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "devDependencies": {
+        "@babel/core": "7.17.8",
+        "@faker-js/faker": "^7.6.0",
+        "@types/node": "17.0.23",
+        "@types/react": "^18.2.0",
+        "@types/react-dom": "^18.2.1",
+        "@types/styled-components": "5.1.24",
+        "@vitejs/plugin-react": "^4.0.0",
+        "acorn-jsx": "5.3.2",
+        "babel-loader": "8.2.4",
+        "json": "11.0.0",
+        "typescript": "^5.0.4",
+        "vite": "^4.3.4",
+        "vite-plugin-dts": "1.0.3"
+    },
+    "license": "MIT",
+    "peerDependencies": {
+        "@tanstack/react-table": "8.x",
+        "react": "18.x",
+        "react-dom": "18.x"
+    },
+    "files": [
+        "dist"
+    ],
+    "main": "./dist/bundle.umd.js",
+    "module": "./dist/bundle.es.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/bundle.es.js",
+            "require": "./dist/bundle.umd.js"
+        }
+    }
+}
