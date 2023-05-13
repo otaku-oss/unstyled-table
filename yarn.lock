@@ -1900,6 +1900,11 @@ universalify@^2.0.0:
   resolved "https://registry.yarnpkg.com/universalify/-/universalify-2.0.0.tgz#75a4984efedc4b08975c5aeb73f530d02df25717"
   integrity sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==
 
+unstyled-table@*:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/unstyled-table/-/unstyled-table-0.0.3.tgz#d805301b47aa29338bc69a1f40115482e9846ad6"
+  integrity sha512-9lpBvrUsUhfeiBWFRMAs/9ixAGGUCgKaprtcd+Eux8ScM0duI65/qeo3209VjRbxaADIrI/QBLCFD4+xNgtFxQ==
+
 update-browserslist-db@^1.0.10:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/update-browserslist-db/-/update-browserslist-db-1.0.11.tgz#9a2a641ad2907ae7b3616506f4b977851db5b940"
