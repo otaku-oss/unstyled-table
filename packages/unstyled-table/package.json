@@ -1,6 +1,6 @@
 {
   "name": "unstyled-table",
-  "version": "0.0.3-alpha-1",
+  "version": "0.0.3-alpha-2",
   "description": "An unstyled react table component built on top of @tanstack/react-table v8",
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs"
