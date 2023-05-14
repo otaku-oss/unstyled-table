@@ -1,0 +1,3 @@
+[submodule "sites/unstyled-table-docs"]
+	path = sites/unstyled-table-docs
+	url = https://github.com/sadmann7/unstyled-table-docs.git
