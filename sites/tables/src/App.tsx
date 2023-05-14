@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Table } from 'unstyled-table';
+import { Table, type ColumnDef } from 'unstyled-table';
 import { makeData, type Person } from './lib/makeData';
-import type { ColumnDef } from '@tanstack/react-table';
 
 const columns: ColumnDef<Person>[] = [
   {
