@@ -1,25 +1,70 @@
-# Sim
+# Unstyled Table
 
-This repository is an example of a React library created with TypeScript and Vite.
+An unstyled react table component built on top of @tanstack/react-table v8
 
-## Getting Started
-
-First, install the dependencies of the monorepo:
+## Installation
 
 ```bash
-yarn install
+npm install --save unstyled-table
+#or
+yarn add unstyled-table
+#or
+pnpm add unstyled-table
 ```
 
-Build the library:
+## Get started
 
-```bash
-cd packages/unstyled-table && yarn build
+```javascript
+//react component
+import { useState } from 'react';
+import { Table } from 'unstyled-table';
+
+const columns = [
+  { accessorKey: 'name', header: 'Name' },
+  { accessorKey: 'email', header: 'Email' },
+];
+
+export default function YourTable() {
+  const [data, setData] = useState([
+    { name: 'Touha', email: 'touha@example.com' },
+    { name: 'Sadman', email: 'sadman@example.com' },
+    { name: 'Otaku Dev', email: 'otakudev@example.com' },
+  ]);
+
+  return <Table columns={columns} data={data} />;
+}
 ```
 
-Run the development server of the test project:
+## Customization
 
-```bash
-cd sites/vite-testing && yarn dev
+```javascript
+import { useState } from 'react';
+import { Table } from 'unstyled-table';
+
+const columns = [
+  { accessorKey: 'name', header: 'Name' },
+  { accessorKey: 'email', header: 'Email' },
+];
+
+export default function YourTable() {
+  const [data, setData] = useState([
+    { name: 'Touha', email: 'touha@example.com' },
+    { name: 'Sadman', email: 'sadman@example.com' },
+    { name: 'Otaku Dev', email: 'otakudev@example.com' },
+  ]);
+
+  return (
+    <Table
+      columns={columns}
+      data={data}
+      renders={{
+        table: ({ children }) => (
+          <div className="table-wrapper">
+            <table className="table-class">{children}</table>
+          </div>
+        ),
+      }}
+    />
+  );
+}
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
