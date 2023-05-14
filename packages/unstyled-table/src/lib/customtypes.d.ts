@@ -97,7 +97,7 @@ export interface TableProps<TData extends any, TValue = any> {
     header?: HeaderComponent<TData>;
     headerRow?: HeaderRowComponent<TData>;
     headerCell?: HeaderCellComponent<TData>;
-    body?: BodyComponent<TData>;
+    body?: BodyComponent;
     bodyRow?: BodyRowComponent<TData>;
     bodyCell?: BodyCellComponent<TData>;
     footer?: FooterComponent<TData>;
