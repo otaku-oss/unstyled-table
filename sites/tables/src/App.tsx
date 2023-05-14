@@ -90,7 +90,17 @@ function App() {
   const [data] = useState(() => makeData(10));
   return (
     <main>
-      <Table columns={columns} data={data}></Table>
+      <Table
+        columns={columns}
+        data={data}
+        renders={{
+          headerCell: ({ children, props }) => (
+            <th {...props} style={{ background: 'teal' }}>
+              {children}
+            </th>
+          ),
+        }}
+      ></Table>
     </main>
   );
 }

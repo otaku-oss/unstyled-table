@@ -1,61 +1,52 @@
 {
   "name": "unstyled-table",
-  "version": "0.0.3-alpha.2",
+  "version": "0.0.3-alpha-1",
+  "description": "An unstyled react table component built on top of @tanstack/react-table v8",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\""
+    "build": "rollup -c --bundleConfigAsCjs"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/otaku-oss/unstyled-table.git"
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-terser": "^0.4.1",
+    "@rollup/plugin-typescript": "^11.1.1",
+    "@types/react": "^18.2.6",
+    "react": "^18.2.0",
+    "rollup": "^3.21.7",
+    "rollup-plugin-dts": "^5.3.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "tslib": "^2.5.0",
+    "typescript": "^5.0.4"
   },
-  "dependencies": {
-    "@tanstack/match-sorter-utils": "^8.8.4",
-    "@tanstack/react-table": "^8.9.0",
+  "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
-  "devDependencies": {
-    "@babel/core": "7.17.8",
-    "@faker-js/faker": "^7.6.0",
-    "@types/node": "17.0.23",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.1",
-    "@types/styled-components": "5.1.24",
-    "@vitejs/plugin-react": "^4.0.0",
-    "acorn-jsx": "5.3.2",
-    "babel-loader": "8.2.4",
-    "json": "11.0.0",
-    "typescript": "^5.0.4",
-    "vite": "^4.3.4",
-    "vite-plugin-dts": "1.0.3"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/otaku-oss/unstyled-table.git"
   },
   "keywords": [
-    "react",
     "table",
+    "react",
     "react-table",
-    "unstyled-table",
     "headless-table",
-    "server-side-table"
+    "unstyled-table",
+    "tanstack-table",
+    "datatable",
+    "next-table"
   ],
+  "author": "Otaku OSS",
   "license": "MIT",
-  "peerDependencies": {
-    "@tanstack/react-table": "8.x",
-    "react": "18.x",
-    "react-dom": "18.x"
+  "bugs": {
+    "url": "https://github.com/otaku-oss/unstyled-table/issues"
   },
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/bundle.umd.js",
-  "module": "./dist/bundle.es.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/bundle.es.js",
-      "require": "./dist/bundle.umd.js"
-    }
+  "homepage": "https://github.com/otaku-oss/unstyled-table#readme",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@tanstack/match-sorter-utils": "^8.8.4",
+    "@tanstack/react-table": "^8.9.1"
   }
 }
