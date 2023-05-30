@@ -153,7 +153,7 @@ const ReactTable = <TData, TValue = any>({ renders, ...props }: TableProps<TData
               </renderers.HeaderRow>
             ))}
           </renderers.Header>
-          <renderers.Body renderer={renders?.body}>
+          <renderers.Body renderer={renders?.body} rowModel={table.getRowModel()}>
             {table.getRowModel().rows.map((row) => {
               return (
                 <renderers.BodyRow renderer={renders?.bodyRow} row={row} key={row.id}>

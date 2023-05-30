@@ -31,10 +31,6 @@ const columns: ColumnDef<Person>[] = [
         cell: ({ row, getValue }) => (
           <div
             style={{
-              // Since rows are flattened by default,
-              // we can use the row.depth property
-              // and paddingLeft to visually indicate the depth
-              // of the row
               paddingLeft: `${row.depth * 2}rem`,
             }}
           >

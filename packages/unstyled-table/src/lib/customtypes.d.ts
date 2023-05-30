@@ -16,6 +16,7 @@ import type {
   InitialTableState,
   PaginationState,
   Row,
+  RowModel,
   SortingState,
   Table,
   VisibilityState,
@@ -37,7 +38,7 @@ export type HeaderCellComponent<TData> = FC<{
   props: HTMLProps<HTMLTableHeaderCellElement>;
   header: Header<TData, unknown>;
 }>;
-export type BodyComponent = FC<{ children: ReactNode }>;
+export type BodyComponent<TData> = FC<{ children: ReactNode; rowModel: RowModel<TData> }>;
 export type BodyRowComponent<TData> = FC<{ children: ReactNode; row: Row<TData> }>;
 export type BodyCellComponent<TData> = FC<{
   children: ReactNode;
@@ -97,7 +98,7 @@ export interface TableProps<TData extends any, TValue = any> {
     header?: HeaderComponent<TData>;
     headerRow?: HeaderRowComponent<TData>;
     headerCell?: HeaderCellComponent<TData>;
-    body?: BodyComponent;
+    body?: BodyComponent<TData>;
     bodyRow?: BodyRowComponent<TData>;
     bodyCell?: BodyCellComponent<TData>;
     footer?: FooterComponent<TData>;

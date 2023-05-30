@@ -1,9 +1,14 @@
 {
   "name": "unstyled-table",
-  "version": "0.0.3-alpha-2",
+  "version": "0.0.3-alpha-3",
   "description": "An unstyled react table component built on top of @tanstack/react-table v8",
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs"
+  },
+  "dependencies": {
+    "@tanstack/match-sorter-utils": "^8.8.4",
+    "@tanstack/react-table": "^8.9.1",
+    "@tanstack/react-virtual": "^3.0.0-beta.54"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.0",
@@ -34,6 +39,7 @@
     "unstyled-table",
     "tanstack-table",
     "datatable",
+    "datagrid",
     "next-table"
   ],
   "author": "Otaku OSS",
@@ -44,9 +50,5 @@
   "homepage": "https://github.com/otaku-oss/unstyled-table#readme",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "types": "dist/index.d.ts",
-  "dependencies": {
-    "@tanstack/match-sorter-utils": "^8.8.4",
-    "@tanstack/react-table": "^8.9.1"
-  }
+  "types": "dist/index.d.ts"
 }
