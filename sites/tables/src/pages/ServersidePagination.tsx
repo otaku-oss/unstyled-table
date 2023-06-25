@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { ColumnDef, PaginationState, Table } from 'unstyled-table';
+import { ColumnDef, PaginationComponent, PaginationState, Table } from 'unstyled-table';
 import { Person, fetchData } from '../lib/makeData';
 
-const ServerTable = () => {
+const ServersidePagination = () => {
   const columns = React.useMemo<ColumnDef<Person>[]>(
     () => [
       {
@@ -79,9 +79,21 @@ const ServerTable = () => {
       state={{ pagination }}
       manualPagination
       setPagination={setPagination}
-      itemsCount={dataQuery.data?.pageCount}
+      pagesCount={dataQuery.data?.pageCount}
+      renders={{
+        paginationBar: ({ tableInstance }) => (
+          <PaginationComponent
+            tableInstance={tableInstance}
+            btn={({ props, children }) => (
+              <button {...props} style={{ color: 'red' }}>
+                {children}
+              </button>
+            )}
+          />
+        ),
+      }}
     />
   );
 };
 
-export default ServerTable;
+export default ServersidePagination;

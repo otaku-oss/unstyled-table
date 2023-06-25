@@ -6,3 +6,25 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+a {
+  text-decoration: none;
+}
+
+.navbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.navbar a {
+  display: block;
+  padding: 10px 20px;
+  color: inherit;
+  background-color: aliceblue;
+  transition: filter 200ms ease-in-out;
+}
+
+.navbar a:hover {
+  filter: brightness(0.9);
+}

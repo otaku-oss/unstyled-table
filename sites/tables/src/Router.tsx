@@ -1,15 +1,22 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from './pages/Home';
-import ServerTable from './pages/ServerTable';
+import ServersidePagination from './pages/ServersidePagination';
+import Layout from './pages/Layout';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomePage />,
-  },
-  {
-    path: '/server-table',
-    element: <ServerTable />,
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: 'serverside-pagination',
+        element: <ServersidePagination />,
+      },
+    ],
   },
 ]);
 
