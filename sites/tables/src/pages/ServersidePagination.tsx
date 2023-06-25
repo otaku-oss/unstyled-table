@@ -79,7 +79,7 @@ const ServersidePagination = () => {
       state={{ pagination }}
       manualPagination
       setPagination={setPagination}
-      pagesCount={dataQuery.data?.pageCount}
+      pageCount={dataQuery.data?.pageCount}
       renders={{
         paginationBar: ({ tableInstance }) => (
           <PaginationComponent
