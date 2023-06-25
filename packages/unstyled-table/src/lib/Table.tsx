@@ -87,10 +87,7 @@ const ReactTable = <TData, TValue = any>({ renders, ...props }: TableProps<TData
     },
     filterFns: { fuzzy: fuzzyFilter },
     manualSorting,
-    pageCount:
-      manualPagination && props.itemsCount
-        ? Math.ceil(props.itemsCount / (props.state?.pagination?.pageSize ?? pagination.pageSize))
-        : undefined,
+    pageCount: props.manualPagination ? props.pagesCount ?? props.pagesCount : undefined,
     manualFiltering,
     manualPagination,
     onSortingChange: props.setSorting ?? setSorting,
