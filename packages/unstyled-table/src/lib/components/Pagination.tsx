@@ -1,6 +1,6 @@
 import type { PaginationProps } from '../customtypes';
 import { chevronDoubleLeft, chevronDoubleRight, chevronLeft, chevronRight } from './icons';
-import type { CSSProperties } from 'react';
+import { type CSSProperties } from 'react';
 import PaginationButton from './renderers/PaginationButton';
 
 const btnStyle: CSSProperties = {

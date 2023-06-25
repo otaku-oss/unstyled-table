@@ -54,40 +54,27 @@ const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
 const ReactTable = <TData, TValue = any>({ renders, ...props }: TableProps<TData, TValue>) => {
   const { manualFiltering, manualSorting, manualPagination, state } = props;
 
-  const [sorting, setSorting] = useState<SortingState>(state?.sorting ? [...state?.sorting] : []);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-    state?.columnFilters ? [...state?.columnFilters] : []
-  );
-  const [globalFilter, setGlobalFilter] = useState<string>(state?.globalFilter ?? '');
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
-    state?.columnVisibility ? { ...state?.columnVisibility } : {}
-  );
-  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
-    pageIndex: state?.pagination?.pageIndex ?? 0,
-    pageSize: state?.pagination?.pageSize ?? 10,
-  });
-  const pagination = useMemo(
-    () => ({
-      pageIndex,
-      pageSize,
-    }),
-    [pageIndex, pageSize]
-  );
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
+  const [globalFilter, setGlobalFilter] = useState<string>();
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+
   const table = useReactTable<TData>({
     columns: props.columns,
     data: props.data,
     initialState: props.initialState,
     defaultColumn: props.defaultColumn,
     state: {
-      sorting,
-      columnFilters,
-      globalFilter,
-      pagination,
-      columnVisibility,
+      sorting: state?.sorting ?? sorting,
+      columnFilters: state?.columnFilters ?? columnFilters,
+      globalFilter: state?.globalFilter ?? globalFilter,
+      columnVisibility: state?.columnVisibility ?? columnVisibility,
+      pagination: state?.pagination ?? pagination,
     },
     filterFns: { fuzzy: fuzzyFilter },
     manualSorting,
-    pageCount: props.manualPagination ? props.pagesCount ?? props.pagesCount : undefined,
+    pageCount: props.manualPagination ? props.pageCount ?? props.pageCount : undefined,
     manualFiltering,
     manualPagination,
     onSortingChange: props.setSorting ?? setSorting,
@@ -103,6 +90,11 @@ const ReactTable = <TData, TValue = any>({ renders, ...props }: TableProps<TData
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
+    debugAll: props.debugAll,
+    debugTable: props.debugTable,
+    debugColumns: props.debugColumns,
+    debugHeaders: props.debugHeaders,
+    debugRows: props.debugRows,
   });
 
   return (

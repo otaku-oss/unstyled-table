@@ -88,10 +88,14 @@ export interface TableProps<TData extends any, TValue = any> {
   manualPagination?: boolean;
   disableGlobalFilter?: boolean;
   disableColumnVisibility?: boolean;
-  pagesCount?: number;
-  itemsCount?: number;
+  pageCount?: number;
   showFooter?: boolean;
   hidePaginationBar?: boolean;
+  debugAll?: boolean;
+  debugTable?: boolean;
+  debugColumns?: boolean;
+  debugRows?: boolean;
+  debugHeaders?: boolean;
 
   // renderers
   renders?: {
