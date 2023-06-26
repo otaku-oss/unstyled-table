@@ -73,11 +73,5 @@ export default function YourTable() {
 
 # Roadmap
 
-- [x] Basic table
-- [x] Column visibility
-- [x] Pagination, sorting, filtering
-- [x] Server side pagination, sorting, filtering
-- [ ] Editable cells
-- [ ] Drag and drop columns
 - [ ] Virtualized rows
 - [ ] Virtualized rows with infinite scroll
