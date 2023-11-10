@@ -9,7 +9,6 @@ import type {
 } from 'react';
 import type {
   Cell,
-  ColumnDef,
   ColumnFiltersState,
   Header,
   HeaderGroup,
@@ -20,6 +19,7 @@ import type {
   SortingState,
   Table,
   VisibilityState,
+  ColumnDef,
 } from '@tanstack/react-table';
 
 export type PaginationButtonComponenet = FC<{ props: ButtonHTMLAttributes<HTMLButtonElement>; children: ReactNode }>;
@@ -35,7 +35,7 @@ export type HeaderComponent<TData> = FC<{ children: ReactNode; headerGroups: Hea
 export type HeaderRowComponent<TData> = FC<{ children: ReactNode; headerGroup: HeaderGroup<TData> }>;
 export type HeaderCellComponent<TData> = FC<{
   children: ReactNode;
-  props: HTMLProps<HTMLTableHeaderCellElement>;
+  props: HTMLProps<HTMLTableCellElement>;
   header: Header<TData, unknown>;
 }>;
 export type BodyComponent<TData> = FC<{ children: ReactNode; rowModel: RowModel<TData> }>;
@@ -50,7 +50,7 @@ export type FooterComponent<TData> = FC<{ children: ReactNode; footerGroups: Hea
 export type FooterRowComponent<TData> = FC<{ children: ReactNode; footerGroup: HeaderGroup<TData> }>;
 export type FooterCellComponent<TData> = FC<{
   children: ReactNode;
-  props: HTMLProps<HTMLTableHeaderCellElement>;
+  props: HTMLProps<HTMLTableCellElement>;
   header: Header<TData, unknown>;
 }>;
 

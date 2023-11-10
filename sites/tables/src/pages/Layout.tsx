@@ -5,7 +5,7 @@ const Layout = () => {
     <div>
       <nav className="navbar">
         <Link to={'/'}>Home</Link>
-        <Link to={'/serverside-pagination'}>Server Side Pagination</Link>
+        <Link to={'/fully-controlled'}>Fully Controlled</Link>
       </nav>
       <Outlet />
     </div>

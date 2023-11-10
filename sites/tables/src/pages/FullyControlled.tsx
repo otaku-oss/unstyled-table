@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { ColumnDef, PaginationComponent, PaginationState, Table } from 'unstyled-table';
+import { ColumnDef, PaginationComponent, PaginationState, SortingState, Table } from 'unstyled-table';
 import { Person, fetchData } from '../lib/makeData';
 
-const ServersidePagination = () => {
+const FullyControlled = () => {
   const columns = React.useMemo<ColumnDef<Person>[]>(
     () => [
       {
@@ -14,6 +14,7 @@ const ServersidePagination = () => {
             accessorKey: 'firstName',
             cell: (info) => info.getValue(),
             footer: (props) => props.column.id,
+            meta: { filter: '' },
           },
           {
             accessorFn: (row) => row.lastName,
@@ -63,37 +64,45 @@ const ServersidePagination = () => {
     pageIndex: 0,
     pageSize: 10,
   });
+  const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const fetchDataOptions = {
     ...pagination,
   };
 
-  const dataQuery = useQuery(['data', fetchDataOptions], () => fetchData(fetchDataOptions), { keepPreviousData: true });
+  const dataQuery = useQuery(['data', fetchDataOptions, sorting], () => fetchData(fetchDataOptions), {
+    keepPreviousData: true,
+  });
 
   const defaultData = React.useMemo(() => [], []);
 
   return (
-    <Table
-      columns={columns}
-      data={dataQuery.data?.rows ?? defaultData}
-      state={{ pagination }}
-      manualPagination
-      setPagination={setPagination}
-      pageCount={dataQuery.data?.pageCount}
-      renders={{
-        paginationBar: ({ tableInstance }) => (
-          <PaginationComponent
-            tableInstance={tableInstance}
-            btn={({ props, children }) => (
-              <button {...props} style={{ color: 'red' }}>
-                {children}
-              </button>
-            )}
-          />
-        ),
-      }}
-    />
+    <>
+      <Table
+        columns={columns}
+        data={dataQuery.data?.rows ?? defaultData}
+        state={{ pagination, sorting }}
+        manualPagination
+        manualSorting
+        setPagination={setPagination}
+        setSorting={setSorting}
+        pageCount={dataQuery.data?.pageCount}
+        renders={{
+          paginationBar: ({ tableInstance }) => (
+            <PaginationComponent
+              tableInstance={tableInstance}
+              btn={({ props, children }) => (
+                <button {...props} style={{ color: 'red' }}>
+                  {children}
+                </button>
+              )}
+            />
+          ),
+        }}
+      />
+      {dataQuery.isLoading ? 'loading...' : ''}
+    </>
   );
 };
 
-export default ServersidePagination;
+export default FullyControlled;

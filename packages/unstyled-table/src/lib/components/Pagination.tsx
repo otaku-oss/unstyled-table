@@ -7,7 +7,7 @@ const btnStyle: CSSProperties = {
   padding: 4,
 };
 
-const PaginationComponent = <TData extends any>({ tableInstance, ...props }: PaginationProps<TData>) => {
+export const PaginationComponent = <TData extends any>({ tableInstance, ...props }: PaginationProps<TData>) => {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
       <PaginationButton
@@ -108,5 +108,3 @@ const PaginationComponent = <TData extends any>({ tableInstance, ...props }: Pag
     </div>
   );
 };
-
-export default PaginationComponent;

@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from './pages/Home';
-import ServersidePagination from './pages/ServersidePagination';
+import FullyControlled from './pages/FullyControlled';
 import Layout from './pages/Layout';
 
 const router = createBrowserRouter([
@@ -13,8 +13,8 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: 'serverside-pagination',
-        element: <ServersidePagination />,
+        path: 'fully-controlled',
+        element: <FullyControlled />,
       },
     ],
   },

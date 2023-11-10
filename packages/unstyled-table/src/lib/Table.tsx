@@ -13,7 +13,10 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { compareItems, rankItem, type RankingInfo } from '@tanstack/match-sorter-utils';
+import Filter from './components/Filter';
+import { PaginationComponent } from './components/pagination';
 import * as renderers from './components/renderers';
+import { ChevronDown, ChevronUp } from './components/icons';
 import type { ReactNode } from 'react';
 import type {
   ColumnFiltersState,
@@ -21,11 +24,10 @@ import type {
   SortingState,
   VisibilityState,
   FilterFn,
+  Table,
 } from '@tanstack/react-table';
-import { ChevronDown, ChevronUp } from './components/icons';
 import type { TableProps } from './customtypes';
-import PaginationComponent from './components/Pagination';
-import Filter from './components/Filter';
+import { TableProvider } from './hooks/use-table';
 
 declare module '@tanstack/table-core' {
   interface FilterFns {
@@ -51,7 +53,7 @@ const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
   return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir;
 };
 
-const ReactTable = <TData, TValue = any>({ renders, ...props }: TableProps<TData, TValue>) => {
+export const ReactTable = <TData, TValue = any>({ renders, ...props }: TableProps<TData, TValue>) => {
   const { manualFiltering, manualSorting, manualPagination, state } = props;
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -98,7 +100,7 @@ const ReactTable = <TData, TValue = any>({ renders, ...props }: TableProps<TData
   });
 
   return (
-    <>
+    <TableProvider initialValue={table as Table<unknown>}>
       <renderers.Table renderer={renders?.table} tableInstance={table}>
         <renderers.Header renderer={renders?.header} headerGroups={table.getHeaderGroups()}>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -183,8 +185,6 @@ const ReactTable = <TData, TValue = any>({ renders, ...props }: TableProps<TData
       ) : (
         <PaginationComponent tableInstance={table} />
       )}
-    </>
+    </TableProvider>
   );
 };
-
-export default ReactTable;
