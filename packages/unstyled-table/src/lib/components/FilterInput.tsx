@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import type { FilterInputComponent } from '../../customtypes';
+import type { FilterInputComponent } from '../customtypes';
 
 const FilterInput = ({
   props,

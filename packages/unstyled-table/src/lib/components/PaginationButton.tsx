@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import type { PaginationButtonComponenet } from '../../customtypes';
+import type { PaginationButtonComponenet } from '../customtypes';
 
 const PaginationButton = ({
   renderer: Renderer,

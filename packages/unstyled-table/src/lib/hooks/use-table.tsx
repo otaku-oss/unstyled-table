@@ -1,14 +1,14 @@
-import { createContext, useContext, type ReactNode, type FC } from 'react';
-import { Table } from '@tanstack/react-table';
+import { createContext, useContext, type ReactNode } from 'react';
+import { type Table } from '@tanstack/react-table';
 
 export const TableContext = createContext<Table<unknown> | undefined>(undefined);
 
-interface TableProviderProps<T> {
+interface TableProviderProps<T extends unknown> {
   children: ReactNode;
-  initialValue: Table<T>;
+  value: Table<T>;
 }
-export const TableProvider: FC<TableProviderProps<unknown>> = ({ children, initialValue }) => {
-  return <TableContext.Provider value={initialValue}>{children}</TableContext.Provider>;
+export const TableProvider = <T extends unknown>({ children, value }: TableProviderProps<T>) => {
+  return <TableContext.Provider value={value as Table<unknown>}>{children}</TableContext.Provider>;
 };
 
 export function useTable<T extends unknown>(): Table<T> {

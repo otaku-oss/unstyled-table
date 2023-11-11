@@ -13,10 +13,20 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { compareItems, rankItem, type RankingInfo } from '@tanstack/match-sorter-utils';
-import Filter from './components/Filter';
-import { PaginationComponent } from './components/pagination';
-import * as renderers from './components/renderers';
-import { ChevronDown, ChevronUp } from './components/icons';
+import { CustomTable } from '@/lib/components/table';
+import { TableHead } from '@/lib/components/table-head';
+import { HeaderRow } from '@/lib/components/table-header-row';
+import { HeaderCell } from '@/lib/components/table-header-cell';
+import { TableBody } from '@/lib/components/table-body';
+import { BodyRow } from '@/lib/components/table-body-row';
+import { BodyCell } from '@/lib/components/table-body-cell';
+import { TableFoot } from '@/lib/components/table-foot';
+import { FooterRow } from '@/lib/components/table-footer-row';
+import { FooterCell } from '@/lib/components/table-footer-cell';
+import Filter from '@/lib/components/Filter';
+import { PaginationComponent } from '@/lib/components/pagination';
+import { ChevronDown, ChevronUp } from '@/lib/components/icons';
+
 import type { ReactNode } from 'react';
 import type {
   ColumnFiltersState,
@@ -24,7 +34,6 @@ import type {
   SortingState,
   VisibilityState,
   FilterFn,
-  Table,
 } from '@tanstack/react-table';
 import type { TableProps } from './customtypes';
 import { TableProvider } from './hooks/use-table';
@@ -53,7 +62,7 @@ const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
   return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir;
 };
 
-export const ReactTable = <TData, TValue = any>({ renders, ...props }: TableProps<TData, TValue>) => {
+export const ReactTable = <TData, TValue = any>({ components, ...props }: TableProps<TData, TValue>) => {
   const { manualFiltering, manualSorting, manualPagination, state } = props;
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -100,18 +109,13 @@ export const ReactTable = <TData, TValue = any>({ renders, ...props }: TableProp
   });
 
   return (
-    <TableProvider initialValue={table as Table<unknown>}>
-      <renderers.Table renderer={renders?.table} tableInstance={table}>
-        <renderers.Header renderer={renders?.header} headerGroups={table.getHeaderGroups()}>
+    <TableProvider value={table}>
+      <CustomTable renderer={components?.table}>
+        <TableHead renderer={components?.header}>
           {table.getHeaderGroups().map((headerGroup) => (
-            <renderers.HeaderRow headerGroup={headerGroup} key={headerGroup.id} renderer={renders?.headerRow}>
+            <HeaderRow key={headerGroup.id} renderer={components?.headerRow} instance={headerGroup}>
               {headerGroup.headers.map((header) => (
-                <renderers.HeaderCell
-                  renderer={renders?.headerCell}
-                  props={{ colSpan: header.colSpan }}
-                  header={header}
-                  key={header.id}
-                >
+                <HeaderCell renderer={components?.headerCell} instance={header} key={header.id}>
                   {header.isPlaceholder ? null : (
                     <>
                       <div
@@ -133,58 +137,49 @@ export const ReactTable = <TData, TValue = any>({ renders, ...props }: TableProp
                       </div>
                       {header.column.getCanFilter() ? (
                         <div>
-                          <Filter column={header.column} table={table} inputComponent={renders?.filterInput} />
+                          <Filter column={header.column} table={table} />
                         </div>
                       ) : null}
                     </>
                   )}
-                </renderers.HeaderCell>
+                </HeaderCell>
               ))}
-            </renderers.HeaderRow>
+            </HeaderRow>
           ))}
-        </renderers.Header>
-        <renderers.Body renderer={renders?.body} rowModel={table.getRowModel()}>
+        </TableHead>
+        <TableBody renderer={components?.body}>
           {table.getRowModel().rows.map((row) => {
             return (
-              <renderers.BodyRow renderer={renders?.bodyRow} row={row} key={row.id}>
+              <BodyRow key={row.id} renderer={components?.bodyRow} instance={row}>
                 {row.getVisibleCells().map((cell) => {
                   return (
-                    <renderers.BodyCell renderer={renders?.bodyCell} props={{}} cell={cell} key={cell.id}>
+                    <BodyCell key={cell.id} renderer={components?.bodyCell} instance={cell}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext()) as ReactNode}
-                    </renderers.BodyCell>
+                    </BodyCell>
                   );
                 })}
-              </renderers.BodyRow>
+              </BodyRow>
             );
           })}
-        </renderers.Body>
+        </TableBody>
         {props.showFooter ? (
-          <renderers.Footer renderer={renders?.footer} footerGroups={table.getFooterGroups()}>
+          <TableFoot renderer={components?.footer}>
             {table.getFooterGroups().map((footerGroup) => (
-              <renderers.FooterRow key={footerGroup.id} renderer={renders?.footerRow} footerGroup={footerGroup}>
+              <FooterRow key={footerGroup.id} renderer={components?.footerRow} instance={footerGroup}>
                 {footerGroup.headers.map((header) => (
-                  <renderers.FooterCell
-                    props={{ colSpan: header.colSpan }}
-                    key={header.id}
-                    renderer={renders?.footerCell}
-                    header={header}
-                  >
+                  <FooterCell key={header.id} renderer={components?.footerCell} instance={header}>
                     {header.isPlaceholder
                       ? null
                       : (flexRender(header.column.columnDef.footer, header.getContext()) as ReactNode)}
-                  </renderers.FooterCell>
+                  </FooterCell>
                 ))}
-              </renderers.FooterRow>
+              </FooterRow>
             ))}
-          </renderers.Footer>
+          </TableFoot>
         ) : null}
-      </renderers.Table>
+      </CustomTable>
 
-      {props.hidePaginationBar ? null : renders?.paginationBar ? (
-        <renders.paginationBar tableInstance={table} />
-      ) : (
-        <PaginationComponent tableInstance={table} />
-      )}
+      {props.hidePagination ? null : components?.pagination ? <components.pagination /> : <PaginationComponent />}
     </TableProvider>
   );
 };

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import type { InputHTMLAttributes } from 'react';
 import type { Column, Table } from '@tanstack/react-table';
 import type { FilterInputComponent } from '../customtypes';
-import FilterInput from './renderers/FilterInput';
+import FilterInput from './FilterInput';
 
 export default function Filter<TData extends any>({
   column,
