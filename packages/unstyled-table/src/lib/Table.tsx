@@ -57,13 +57,19 @@ const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
 const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
   let dir = 0;
   if (rowA.columnFiltersMeta[columnId]) {
-    dir = compareItems(rowA.columnFiltersMeta[columnId]! as any, rowB.columnFiltersMeta[columnId]! as any);
+    dir = compareItems(
+      rowA.columnFiltersMeta[columnId]! as any,
+      rowB.columnFiltersMeta[columnId]! as any
+    );
   }
 
   return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir;
 };
 
-export const ReactTable = <TData, TValue = any>({ components, ...props }: TableProps<TData, TValue>) => {
+export const ReactTable = <TData, TValue = any>({
+  components,
+  ...props
+}: TableProps<TData, TValue>) => {
   const { manualFiltering, manualSorting, manualPagination, state } = props;
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -125,22 +131,34 @@ export const ReactTable = <TData, TValue = any>({ components, ...props }: TableP
                             display: header.column.getCanSort() ? 'flex' : 'block',
                             cursor: header.column.getCanSort() ? 'pointer' : 'default',
                             alignItems: 'center',
-                            justifyContent: header.column.getCanSort() ? 'space-between' : undefined,
+                            justifyContent: header.column.getCanSort()
+                              ? 'space-between'
+                              : undefined,
                           },
 
                           onClick: header.column.getToggleSortingHandler(),
                         }}
                       >
-                        {flexRender(header.column.columnDef.header, header.getContext()) as ReactNode}
+                        {
+                          flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          ) as ReactNode
+                        }
                         {{
                           asc: ChevronUp,
                           desc: ChevronDown,
                         }[header.column.getIsSorted() as string] ?? null}
-                        {header.column.getCanSort() && !header.column.getIsSorted() ? ChevronUpDown : null}
+                        {header.column.getCanSort() && !header.column.getIsSorted()
+                          ? ChevronUpDown
+                          : null}
                       </div>
                       {header.column.getCanFilter() ? (
                         <div>
-                          <Filter inputComponent={components?.filterInput} selectComponent={components?.filterSelect} />
+                          <Filter
+                            inputComponent={components?.filterInput}
+                            selectComponent={components?.filterSelect}
+                          />
                         </div>
                       ) : null}
                     </>
@@ -169,12 +187,19 @@ export const ReactTable = <TData, TValue = any>({ components, ...props }: TableP
         {props.showFooter ? (
           <TableFoot renderer={components?.footer}>
             {table.getFooterGroups().map((footerGroup) => (
-              <FooterRow key={footerGroup.id} renderer={components?.footerRow} instance={footerGroup}>
+              <FooterRow
+                key={footerGroup.id}
+                renderer={components?.footerRow}
+                instance={footerGroup}
+              >
                 {footerGroup.headers.map((header) => (
                   <FooterCell key={header.id} renderer={components?.footerCell} instance={header}>
                     {header.isPlaceholder
                       ? null
-                      : (flexRender(header.column.columnDef.footer, header.getContext()) as ReactNode)}
+                      : (flexRender(
+                          header.column.columnDef.footer,
+                          header.getContext()
+                        ) as ReactNode)}
                   </FooterCell>
                 ))}
               </FooterRow>
@@ -183,7 +208,11 @@ export const ReactTable = <TData, TValue = any>({ components, ...props }: TableP
         ) : null}
       </CustomTable>
 
-      {props.hidePagination ? null : components?.pagination ? <components.pagination /> : <Pagination />}
+      {props.hidePagination ? null : components?.pagination ? (
+        <components.pagination />
+      ) : (
+        <Pagination />
+      )}
     </TableProvider>
   );
 };
