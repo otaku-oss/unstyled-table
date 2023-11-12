@@ -7,11 +7,9 @@ export function HeaderCell<T, U = unknown>({
   renderer: Renderer,
   instance,
 }: CustomComponentProps<Header<T, U>>) {
-  return Renderer ? (
+  return (
     <HeaderProvider value={instance}>
-      <Renderer>{children}</Renderer>
+      {Renderer ? <Renderer>{children}</Renderer> : <th colSpan={instance.colSpan}>{children}</th>}
     </HeaderProvider>
-  ) : (
-    <th colSpan={instance.colSpan}>{children}</th>
   );
 }

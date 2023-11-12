@@ -7,11 +7,9 @@ export function FooterCell<T, U = unknown>({
   renderer: Renderer,
   instance,
 }: CustomComponentProps<Header<T, U>>) {
-  return Renderer ? (
+  return (
     <HeaderProvider value={instance}>
-      <Renderer>{children}</Renderer>
+      {Renderer ? <Renderer>{children}</Renderer> : <td>{children}</td>}
     </HeaderProvider>
-  ) : (
-    <td>{children}</td>
   );
 }
