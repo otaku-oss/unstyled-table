@@ -1,7 +1,7 @@
-import { chevronDoubleLeft, chevronDoubleRight, chevronLeft, chevronRight } from './icons';
-import { type CSSProperties } from 'react';
-import PaginationButton from './PaginationButton';
 import { useTable } from '@/lib/hooks';
+import { chevronDoubleLeft, chevronDoubleRight, chevronLeft, chevronRight } from '@/lib/components/icons';
+import type { ComponentProps, CSSProperties } from 'react';
+import type { PaginationButtonComponenet } from '../customtypes';
 
 const btnStyle: CSSProperties = {
   padding: 4,
@@ -85,4 +85,15 @@ export const Pagination = <TData extends any>() => {
       </select>
     </div>
   );
+};
+
+const PaginationButton = ({
+  renderer: Renderer,
+  children,
+  props,
+}: ComponentProps<PaginationButtonComponenet> & { renderer?: PaginationButtonComponenet }) => {
+  if (Renderer) {
+    return <Renderer props={props}>{children}</Renderer>;
+  }
+  return <button {...props}>{children}</button>;
 };
