@@ -1,10 +1,4 @@
-export type {
-  FilterInputComponent,
-  GotoPageInputComponent,
-  ItemsPerPageSelectComponenet,
-  PaginationButtonComponenet,
-  TableProps,
-} from './lib/customtypes';
+export type { FilterInputComponent, FilterSelectComponent, TableProps } from './lib/customtypes';
 
 export type {
   Table,
