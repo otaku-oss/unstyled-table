@@ -1,29 +1,43 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useHeader } from '@/lib/hooks';
+
 import type { InputHTMLAttributes } from 'react';
-import type { Column, Table } from '@tanstack/react-table';
-import type { FilterInputComponent } from '../customtypes';
-import FilterInput from './FilterInput';
+import type { FilterInputComponent, FilterSelectComponent } from '@/lib/customtypes';
+import type { ComponentProps } from 'react';
 
-export default function Filter<TData extends any>({
-  column,
-  table,
+export function Filter<TData extends any>({
   inputComponent,
+  selectComponent,
 }: {
-  column: Column<TData, unknown>;
-  table: Table<TData>;
   inputComponent?: FilterInputComponent;
+  selectComponent?: FilterSelectComponent;
 }) {
-  const firstValue = table.getPreFilteredRowModel().flatRows[0]?.getValue(column.id);
+  const { column } = useHeader<TData>();
 
+  const meta = column.columnDef.meta;
   const columnFilterValue = column.getFilterValue();
 
+  const filterType = useMemo(() => {
+    if (meta && 'filter' in meta && typeof meta.filter === 'string') {
+      return meta.filter as 'search' | 'select' | 'range' | 'boolean';
+    }
+    return 'search';
+  }, [column.columnDef.meta]);
+
+  const filterOptions = useMemo(() => {
+    if (meta && 'options' in meta && isArrayOfStrings(meta.options)) {
+      return meta.options;
+    }
+    return [];
+  }, [column.columnDef.meta]);
+
   const sortedUniqueValues = useMemo(
-    () => (typeof firstValue === 'number' ? [] : Array.from(column.getFacetedUniqueValues().keys()).sort()),
+    () => (filterType === 'range' ? [] : Array.from(column.getFacetedUniqueValues().keys()).sort()),
     [column.getFacetedUniqueValues()]
   );
 
-  return typeof firstValue === 'number' ? (
-    <div>
+  if (filterType === 'range') {
+    return (
       <div>
         <DebouncedInput
           type="number"
@@ -44,11 +58,48 @@ export default function Filter<TData extends any>({
           component={inputComponent}
         />
       </div>
-    </div>
-  ) : (
+    );
+  }
+
+  if (filterType === 'boolean') {
+    return (
+      <FilterSelect
+        renderer={selectComponent}
+        value={(columnFilterValue ?? '') as string}
+        onChange={(e) =>
+          column.setFilterValue(e.target.value === 'true' ? true : e.target.value === 'false' ? false : undefined)
+        }
+        placeholder={`Select ${column.columnDef.header}`}
+        style={{ minWidth: '100px' }}
+      >
+        <option value="">Show All</option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </FilterSelect>
+    );
+  }
+  if (filterType === 'select' && isArrayOfStrings(filterOptions)) {
+    return (
+      <FilterSelect
+        renderer={selectComponent}
+        value={(columnFilterValue ?? '') as string}
+        onChange={(e) => column.setFilterValue(e.target.value)}
+        placeholder={`Select ${column.columnDef.header}`}
+        style={{ minWidth: '100px' }}
+      >
+        <option value="">Show All</option>
+        {filterOptions.map((option) => (
+          <option value={option} key={option}>
+            {option}
+          </option>
+        ))}
+      </FilterSelect>
+    );
+  }
+  return (
     <>
       <datalist id={column.id + 'list'}>
-        {sortedUniqueValues.slice(0, 5000).map((value: any) => (
+        {sortedUniqueValues.slice(0, 500).map((value: any) => (
           <option value={value} key={value} />
         ))}
       </datalist>
@@ -68,7 +119,7 @@ function DebouncedInput({
   component,
   value: initialValue,
   onChange,
-  debounce = 500,
+  debounce = 200,
   ...props
 }: {
   value: string | number;
@@ -90,5 +141,33 @@ function DebouncedInput({
     return () => clearTimeout(timeout);
   }, [value]);
 
-  return <FilterInput props={{ ...props, value, onChange: (e) => setValue(e.target.value) }} renderer={component} />;
+  return <FilterInput {...props} onChange={(e) => setValue(e.target.value)} renderer={component} />;
+}
+
+const FilterInput = ({
+  renderer: Renderer,
+  ...props
+}: ComponentProps<FilterInputComponent> & { renderer?: FilterInputComponent }) => {
+  if (Renderer) {
+    return <Renderer {...props} />;
+  }
+  return <input {...props} />;
+};
+
+const FilterSelect = ({
+  renderer: Renderer,
+  children,
+  ...props
+}: ComponentProps<FilterSelectComponent> & { renderer?: FilterSelectComponent }) => {
+  if (Renderer) {
+    return <Renderer {...props}>{children}</Renderer>;
+  }
+  return <select {...props}>{children}</select>;
+};
+
+function isArrayOfStrings(value: any): value is string[] {
+  if (!Array.isArray(value)) {
+    return false;
+  }
+  return value.every((element) => typeof element === 'string');
 }

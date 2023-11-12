@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { ColumnDef, PaginationComponent, PaginationState, SortingState, Table } from 'unstyled-table';
+import { ColumnDef, PaginationState, SortingState, Table } from 'unstyled-table';
 import { Person, fetchData } from '../lib/makeData';
 
 const FullyControlled = () => {
@@ -87,18 +87,6 @@ const FullyControlled = () => {
         setPagination={setPagination}
         setSorting={setSorting}
         pageCount={dataQuery.data?.pageCount}
-        renders={{
-          paginationBar: ({ tableInstance }) => (
-            <PaginationComponent
-              tableInstance={tableInstance}
-              btn={({ props, children }) => (
-                <button {...props} style={{ color: 'red' }}>
-                  {children}
-                </button>
-              )}
-            />
-          ),
-        }}
       />
       {dataQuery.isLoading ? 'loading...' : ''}
     </>

@@ -1,7 +1,7 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import { type Table } from '@tanstack/react-table';
 
-export const TableContext = createContext<Table<unknown> | undefined>(undefined);
+const TableContext = createContext<Table<unknown> | undefined>(undefined);
 
 interface TableProviderProps<T extends unknown> {
   children: ReactNode;

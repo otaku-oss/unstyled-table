@@ -1,7 +1,7 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import { type HeaderGroup } from '@tanstack/react-table';
 
-export const HeaderGroupContext = createContext<HeaderGroup<unknown> | undefined>(undefined);
+const HeaderGroupContext = createContext<HeaderGroup<unknown> | undefined>(undefined);
 
 interface HeaderGroupProviderProps<T extends unknown> {
   children: ReactNode;

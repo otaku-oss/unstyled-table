@@ -57,7 +57,7 @@ export default function YourTable() {
     <Table
       columns={columns}
       data={data}
-      renders={{
+      components={{
         table: ({ children }) => (
           <div className="table-wrapper">
             <table className="table-class">{children}</table>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Table, type ColumnDef } from 'unstyled-table';
 import { makeData, type Person } from '../lib/makeData';
+import { HeaderCell } from '../components/header-coll';
 
 const columns: ColumnDef<Person>[] = [
   {
@@ -46,11 +47,20 @@ const columns: ColumnDef<Person>[] = [
             accessorKey: 'visits',
             header: () => <span>Visits</span>,
             footer: (props) => props.column.id,
+            meta: { filter: 'range' },
+          },
+
+          {
+            accessorKey: 'active',
+            header: 'Active',
+            footer: (props) => props.column.id,
+            meta: { filter: 'boolean' },
           },
           {
             accessorKey: 'status',
             header: 'Status',
             footer: (props) => props.column.id,
+            meta: { filter: 'select', options: ['relationship', 'complicated', 'single'] },
           },
           {
             accessorKey: 'progress',
@@ -70,8 +80,8 @@ function HomePage() {
       <Table
         columns={columns}
         data={data}
-        renders={{
-          headerCell: ({ children, props }) => <th {...props}>{children}</th>,
+        components={{
+          headerCell: HeaderCell,
         }}
       ></Table>
     </div>

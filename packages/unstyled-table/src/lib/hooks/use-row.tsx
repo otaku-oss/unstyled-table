@@ -1,7 +1,7 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import { type Row } from '@tanstack/react-table';
 
-export const RowContext = createContext<Row<unknown> | undefined>(undefined);
+const RowContext = createContext<Row<unknown> | undefined>(undefined);
 
 interface RowProviderProps<T extends unknown> {
   children: ReactNode;

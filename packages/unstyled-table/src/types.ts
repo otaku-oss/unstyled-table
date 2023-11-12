@@ -1,25 +1,15 @@
 export type {
-  BodyCellComponent,
-  BodyComponent,
-  BodyRowComponent,
   FilterInputComponent,
-  FooterCellComponent,
-  FooterComponent,
-  FooterRowComponent,
   GotoPageInputComponent,
-  HeaderCellComponent,
-  HeaderComponent,
-  HeaderRowComponent,
   ItemsPerPageSelectComponenet,
   PaginationButtonComponenet,
-  PaginationProps,
-  TableComponent,
   TableProps,
 } from './lib/customtypes';
 
 export type {
   Table,
   ColumnDef,
+  ColumnMeta,
   Column,
   ColumnFilter,
   ColumnHelper,

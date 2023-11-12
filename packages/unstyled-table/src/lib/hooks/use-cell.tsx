@@ -1,7 +1,7 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import { type Cell } from '@tanstack/react-table';
 
-export const CellContext = createContext<Cell<unknown, unknown> | undefined>(undefined);
+const CellContext = createContext<Cell<unknown, unknown> | undefined>(undefined);
 
 interface CellProviderProps<T extends unknown, U = unknown> {
   children: ReactNode;

@@ -4,5 +4,5 @@ export function CustomTable<T = undefined>({
   children,
   renderer: Renderer,
 }: Omit<CustomComponentProps<T>, 'instance'>) {
-  return Renderer ? <Renderer>{children}</Renderer> : <thead>{children}</thead>;
+  return Renderer ? <Renderer>{children}</Renderer> : <table>{children}</table>;
 }

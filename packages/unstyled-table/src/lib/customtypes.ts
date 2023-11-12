@@ -1,4 +1,4 @@
-import type { FC, Dispatch, ReactNode, SetStateAction, InputHTMLAttributes, ButtonHTMLAttributes } from 'react';
+import type { FC, Dispatch, ReactNode, SetStateAction, ButtonHTMLAttributes, InputHTMLAttributes } from 'react';
 import type {
   ColumnFiltersState,
   InitialTableState,
@@ -9,12 +9,8 @@ import type {
 } from '@tanstack/react-table';
 
 export type PaginationButtonComponenet = FC<{ props: ButtonHTMLAttributes<HTMLButtonElement>; children: ReactNode }>;
-export type FilterInputComponent = FC<{ props: InputHTMLAttributes<HTMLInputElement> }>;
-export type ItemsPerPageSelectComponenet = FC<{
-  props: InputHTMLAttributes<HTMLSelectElement>;
-  itemsPerPageOptions: number[];
-}>;
-export type GotoPageInputComponent = FC<{ props: InputHTMLAttributes<HTMLInputElement> }>;
+export type FilterInputComponent = FC<InputHTMLAttributes<HTMLInputElement>>;
+export type FilterSelectComponent = FC<InputHTMLAttributes<HTMLSelectElement>>;
 
 export type Renderer = FC<{ children: ReactNode }>;
 export interface CustomComponentProps<T> {
@@ -66,6 +62,10 @@ export interface TableProps<TData extends any, TValue = any> {
     footer?: Renderer;
     footerRow?: Renderer;
     footerCell?: Renderer;
+    empty?: Renderer;
+    loading?: Renderer;
     pagination?: FC;
+    filterInput?: FilterInputComponent;
+    filterSelect?: FilterSelectComponent;
   };
 }

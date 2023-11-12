@@ -8,6 +8,7 @@ export type Person = {
   progress: number;
   status: 'relationship' | 'complicated' | 'single';
   subRows?: Person[];
+  active: boolean;
 };
 
 const range = (len: number) => {
@@ -26,6 +27,7 @@ const newPerson = (): Person => {
     visits: faker.number.int(1000),
     progress: faker.number.int(100),
     status: faker.helpers.shuffle<Person['status']>(['relationship', 'complicated', 'single'])[0],
+    active: faker.datatype.boolean(),
   };
 };
 

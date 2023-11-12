@@ -13,7 +13,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { compareItems, rankItem, type RankingInfo } from '@tanstack/match-sorter-utils';
-import { CustomTable } from '@/lib/components/table';
+import { CustomTable } from '@/lib/components/table-base';
 import { TableHead } from '@/lib/components/table-head';
 import { HeaderRow } from '@/lib/components/table-header-row';
 import { HeaderCell } from '@/lib/components/table-header-cell';
@@ -23,9 +23,9 @@ import { BodyCell } from '@/lib/components/table-body-cell';
 import { TableFoot } from '@/lib/components/table-foot';
 import { FooterRow } from '@/lib/components/table-footer-row';
 import { FooterCell } from '@/lib/components/table-footer-cell';
-import Filter from '@/lib/components/Filter';
-import { PaginationComponent } from '@/lib/components/pagination';
-import { ChevronDown, ChevronUp } from '@/lib/components/icons';
+import { Filter } from '@/lib/components/filter';
+import { Pagination } from '@/lib/components/pagination';
+import { ChevronDown, ChevronUp, ChevronUpDown } from '@/lib/components/icons';
 
 import type { ReactNode } from 'react';
 import type {
@@ -37,6 +37,7 @@ import type {
 } from '@tanstack/react-table';
 import type { TableProps } from './customtypes';
 import { TableProvider } from './hooks/use-table';
+import { TableEmpty } from './components/table-empty';
 
 declare module '@tanstack/table-core' {
   interface FilterFns {
@@ -124,6 +125,7 @@ export const ReactTable = <TData, TValue = any>({ components, ...props }: TableP
                             display: header.column.getCanSort() ? 'flex' : 'block',
                             cursor: header.column.getCanSort() ? 'pointer' : 'default',
                             alignItems: 'center',
+                            justifyContent: header.column.getCanSort() ? 'space-between' : undefined,
                           },
 
                           onClick: header.column.getToggleSortingHandler(),
@@ -134,10 +136,11 @@ export const ReactTable = <TData, TValue = any>({ components, ...props }: TableP
                           asc: ChevronUp,
                           desc: ChevronDown,
                         }[header.column.getIsSorted() as string] ?? null}
+                        {header.column.getCanSort() && !header.column.getIsSorted() ? ChevronUpDown : null}
                       </div>
                       {header.column.getCanFilter() ? (
                         <div>
-                          <Filter column={header.column} table={table} />
+                          <Filter inputComponent={components?.filterInput} selectComponent={components?.filterSelect} />
                         </div>
                       ) : null}
                     </>
@@ -148,6 +151,7 @@ export const ReactTable = <TData, TValue = any>({ components, ...props }: TableP
           ))}
         </TableHead>
         <TableBody renderer={components?.body}>
+          {table.getRowModel().rows.length === 0 ? <TableEmpty>no data</TableEmpty> : null}
           {table.getRowModel().rows.map((row) => {
             return (
               <BodyRow key={row.id} renderer={components?.bodyRow} instance={row}>
@@ -179,7 +183,7 @@ export const ReactTable = <TData, TValue = any>({ components, ...props }: TableP
         ) : null}
       </CustomTable>
 
-      {props.hidePagination ? null : components?.pagination ? <components.pagination /> : <PaginationComponent />}
+      {props.hidePagination ? null : components?.pagination ? <components.pagination /> : <Pagination />}
     </TableProvider>
   );
 };

@@ -1,7 +1,7 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import { type Header } from '@tanstack/react-table';
 
-export const HeaderContext = createContext<Header<unknown, unknown> | undefined>(undefined);
+const HeaderContext = createContext<Header<unknown, unknown> | undefined>(undefined);
 
 interface HeaderProviderProps<T extends unknown, U = unknown> {
   children: ReactNode;
