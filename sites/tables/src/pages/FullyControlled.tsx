@@ -70,9 +70,13 @@ const FullyControlled = () => {
     ...pagination,
   };
 
-  const dataQuery = useQuery(['data', fetchDataOptions, sorting], () => fetchData(fetchDataOptions), {
-    keepPreviousData: true,
-  });
+  const dataQuery = useQuery(
+    ['data', fetchDataOptions, sorting],
+    () => fetchData(fetchDataOptions),
+    {
+      keepPreviousData: true,
+    }
+  );
 
   const defaultData = React.useMemo(() => [], []);
 

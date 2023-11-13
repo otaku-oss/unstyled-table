@@ -77,13 +77,7 @@ function HomePage() {
   const [data] = useState(() => makeData(35));
   return (
     <div style={{ display: 'grid', placeItems: 'center', padding: '20px' }}>
-      <Table
-        columns={columns}
-        data={data}
-        components={{
-          headerCell: HeaderCell,
-        }}
-      ></Table>
+      <Table columns={columns} data={data} components={{ headerCell: HeaderCell }}></Table>
     </div>
   );
 }
