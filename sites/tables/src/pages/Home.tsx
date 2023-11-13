@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Table, type ColumnDef } from 'unstyled-table';
+import { UnstyledTable, type ColumnDef } from 'unstyled-table';
 import { makeData, type Person } from '../lib/makeData';
 import { HeaderCell } from '../components/header-cell';
 
@@ -77,7 +77,11 @@ function HomePage() {
   const [data] = useState(() => makeData(35));
   return (
     <div style={{ display: 'grid', placeItems: 'center', padding: '20px' }}>
-      <Table columns={columns} data={data} components={{ headerCell: HeaderCell }}></Table>
+      <UnstyledTable
+        columns={columns}
+        data={data}
+        components={{ headerCell: HeaderCell }}
+      ></UnstyledTable>
     </div>
   );
 }

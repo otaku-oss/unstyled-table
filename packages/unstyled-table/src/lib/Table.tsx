@@ -63,7 +63,7 @@ const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
   return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir;
 };
 
-export const ReactTable = <TData, TValue = any>({
+export const UnstyledTable = <TData, TValue = any>({
   components,
   ...props
 }: TableProps<TData, TValue>) => {

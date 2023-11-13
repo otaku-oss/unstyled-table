@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { ColumnDef, PaginationState, SortingState, Table } from 'unstyled-table';
+import { ColumnDef, PaginationState, SortingState, UnstyledTable } from 'unstyled-table';
 import { Person, fetchData } from '../lib/makeData';
 
 const FullyControlled = () => {
@@ -82,7 +82,7 @@ const FullyControlled = () => {
 
   return (
     <>
-      <Table
+      <UnstyledTable
         columns={columns}
         data={dataQuery.data?.rows ?? defaultData}
         state={{ pagination, sorting }}

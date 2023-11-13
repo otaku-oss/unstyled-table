@@ -39,7 +39,7 @@ export default function YourTable() {
 
 ```javascript
 import { useState } from 'react';
-import { Table } from 'unstyled-table';
+import { UnstyledTable } from 'unstyled-table';
 
 const columns = [
   { accessorKey: 'name', header: 'Name' },
@@ -54,7 +54,7 @@ export default function YourTable() {
   ]);
 
   return (
-    <Table
+    <UnstyledTable
       columns={columns}
       data={data}
       components={{
