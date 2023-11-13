@@ -23,7 +23,6 @@ import {
 
 import { Filter } from '@/lib/components/filter';
 import { Pagination } from '@/lib/components/pagination';
-import { TableEmpty } from './components/table-empty';
 import { ChevronDown, ChevronUp, ChevronUpDown } from '@/lib/components/icons';
 
 import type { ReactNode } from 'react';
@@ -171,7 +170,20 @@ export const ReactTable = <TData, TValue = any>({
           ))}
         </DynamicComponent>
         <DynamicComponent tagName="tbody" Renderer={components?.body}>
-          {table.getRowModel().rows.length === 0 ? <TableEmpty>no data</TableEmpty> : null}
+          {table.getRowModel().rows.length === 0 ? (
+            <DynamicComponent tagName="tr" Renderer={components?.empty}>
+              <td
+                colSpan={length}
+                style={{
+                  textAlign: 'center',
+                  padding: '2rem',
+                  fontSize: '1.2rem',
+                }}
+              >
+                <i>No Data</i>
+              </td>
+            </DynamicComponent>
+          ) : null}
           {table.getRowModel().rows.map((row) => (
             <RowProvider value={row} key={row.id}>
               <DynamicComponent tagName="tr" Renderer={components?.bodyRow}>
