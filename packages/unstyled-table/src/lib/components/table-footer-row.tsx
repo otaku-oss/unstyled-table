@@ -9,7 +9,7 @@ export function FooterRow<T>({
 }: CustomComponentProps<HeaderGroup<T>>) {
   return (
     <HeaderGroupProvider value={instance}>
-      {Renderer ? <Renderer>{children}</Renderer> : <tr>{children}</tr>}{' '}
+      {Renderer ? <Renderer>{children}</Renderer> : <tr>{children}</tr>}
     </HeaderGroupProvider>
   );
 }

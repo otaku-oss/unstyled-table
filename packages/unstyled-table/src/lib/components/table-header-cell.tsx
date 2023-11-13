@@ -7,6 +7,7 @@ export function HeaderCell<T, U = unknown>({
   renderer: Renderer,
   instance,
 }: CustomComponentProps<Header<T, U>>) {
+  console.log('HeaderCell', Renderer);
   return (
     <HeaderProvider value={instance}>
       {Renderer ? <Renderer>{children}</Renderer> : <th colSpan={instance.colSpan}>{children}</th>}

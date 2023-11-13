@@ -9,7 +9,7 @@ export function BodyCell<T, U = unknown>({
 }: CustomComponentProps<Cell<T, U>>) {
   return (
     <CellProvider value={instance}>
-      {Renderer ? <Renderer>{children}</Renderer> : <td>{children}</td>}{' '}
+      {Renderer ? <Renderer>{children}</Renderer> : <td>{children}</td>}
     </CellProvider>
   );
 }

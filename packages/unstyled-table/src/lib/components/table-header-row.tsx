@@ -5,11 +5,6 @@ import { HeaderGroupProvider } from '@/lib/hooks';
 export function HeaderRow<T>({
   children,
   renderer: Renderer,
-  instance,
 }: CustomComponentProps<HeaderGroup<T>>) {
-  return (
-    <HeaderGroupProvider value={instance}>
-      {Renderer ? <Renderer>{children}</Renderer> : <tr>{children}</tr>}
-    </HeaderGroupProvider>
-  );
+  return Renderer ? <Renderer>{children}</Renderer> : <tr>{children}</tr>;
 }
