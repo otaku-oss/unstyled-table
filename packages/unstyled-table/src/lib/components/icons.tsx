@@ -3,7 +3,7 @@ export const ChevronDown = (
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 20 20"
     fill="currentColor"
-    style={{ width: 20, height: 20, display: 'block' }}
+    style={{ width: 16, height: 16 }}
   >
     <path
       fillRule="evenodd"
@@ -18,7 +18,7 @@ export const ChevronUp = (
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 20 20"
     fill="currentColor"
-    style={{ width: 20, height: 20, display: 'block' }}
+    style={{ width: 16, height: 16 }}
   >
     <path
       fillRule="evenodd"
@@ -35,7 +35,7 @@ export const chevronLeft = (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    style={{ width: 20, height: 20, display: 'block' }}
+    style={{ width: 16, height: 16 }}
   >
     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
   </svg>
@@ -48,7 +48,7 @@ export const chevronRight = (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    style={{ width: 20, height: 20, display: 'block' }}
+    style={{ width: 16, height: 16 }}
   >
     <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
   </svg>
@@ -61,9 +61,13 @@ export const chevronDoubleLeft = (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    style={{ width: 20, height: 20, display: 'block' }}
+    style={{ width: 16, height: 16 }}
   >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
+    />
   </svg>
 );
 export const chevronDoubleRight = (
@@ -73,9 +77,13 @@ export const chevronDoubleRight = (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    style={{ width: 20, height: 20, display: 'block' }}
+    style={{ width: 16, height: 16, display: 'block' }}
   >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"
+    />
   </svg>
 );
 export const ChevronUpDown = (
@@ -85,8 +93,12 @@ export const ChevronUpDown = (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    style={{ width: 20, height: 20, display: 'block' }}
+    style={{ width: 16, height: 16 }}
   >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+    />
   </svg>
 );

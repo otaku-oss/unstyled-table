@@ -1,10 +1,17 @@
 import { useTable } from '@/lib/hooks';
-import { chevronDoubleLeft, chevronDoubleRight, chevronLeft, chevronRight } from '@/lib/components/icons';
+import {
+  chevronDoubleLeft,
+  chevronDoubleRight,
+  chevronLeft,
+  chevronRight,
+} from '@/lib/components/icons';
 import type { ComponentProps, CSSProperties } from 'react';
 import type { PaginationButtonComponenet } from '../customtypes';
 
 const btnStyle: CSSProperties = {
-  padding: 4,
+  paddingInline: 4,
+  paddingBlock: 2,
+  lineHeight: 0,
 };
 
 export const Pagination = <TData extends unknown>() => {
