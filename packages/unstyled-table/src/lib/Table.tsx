@@ -13,18 +13,17 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { compareItems, rankItem, type RankingInfo } from '@tanstack/match-sorter-utils';
-import { CustomTable } from '@/lib/components/table-base';
-import { TableHead } from '@/lib/components/table-head';
-import { HeaderRow } from '@/lib/components/table-header-row';
-import { HeaderCell } from '@/lib/components/table-header-cell';
-import { TableBody } from '@/lib/components/table-body';
-import { BodyRow } from '@/lib/components/table-body-row';
-import { BodyCell } from '@/lib/components/table-body-cell';
-import { TableFoot } from '@/lib/components/table-foot';
-import { FooterRow } from '@/lib/components/table-footer-row';
-import { FooterCell } from '@/lib/components/table-footer-cell';
+import {
+  TableProvider,
+  CellProvider,
+  HeaderGroupProvider,
+  HeaderProvider,
+  RowProvider,
+} from '@/lib/hooks';
+
 import { Filter } from '@/lib/components/filter';
 import { Pagination } from '@/lib/components/pagination';
+import { TableEmpty } from './components/table-empty';
 import { ChevronDown, ChevronUp, ChevronUpDown } from '@/lib/components/icons';
 
 import type { ReactNode } from 'react';
@@ -36,8 +35,7 @@ import type {
   FilterFn,
 } from '@tanstack/react-table';
 import type { TableProps } from './customtypes';
-import { TableProvider } from './hooks/use-table';
-import { TableEmpty } from './components/table-empty';
+import { DynamicComponent } from '@/lib/components/dynamic-component';
 
 declare module '@tanstack/table-core' {
   interface FilterFns {
@@ -117,96 +115,102 @@ export const ReactTable = <TData, TValue = any>({
 
   return (
     <TableProvider value={table}>
-      <CustomTable renderer={components?.table}>
-        <TableHead renderer={components?.header}>
+      <DynamicComponent tagName="table" Renderer={components?.table}>
+        <DynamicComponent tagName="thead" Renderer={components?.header}>
           {table.getHeaderGroups().map((headerGroup) => (
-            <HeaderRow key={headerGroup.id} renderer={components?.headerRow} instance={headerGroup}>
-              {headerGroup.headers.map((header) => (
-                <HeaderCell renderer={components?.headerCell} instance={header} key={header.id}>
-                  {header.isPlaceholder ? null : (
-                    <>
-                      <div
-                        {...{
-                          style: {
-                            display: header.column.getCanSort() ? 'flex' : 'block',
-                            cursor: header.column.getCanSort() ? 'pointer' : 'default',
-                            alignItems: 'center',
-                            justifyContent: header.column.getCanSort()
-                              ? 'space-between'
-                              : undefined,
-                          },
+            <HeaderGroupProvider value={headerGroup} key={headerGroup.id}>
+              <DynamicComponent tagName="tr" Renderer={components?.headerRow}>
+                {headerGroup.headers.map((header) => (
+                  <HeaderProvider value={header} key={header.id}>
+                    <DynamicComponent tagName="th" Renderer={components?.headerCell}>
+                      {header.isPlaceholder ? null : (
+                        <>
+                          <div
+                            {...{
+                              style: {
+                                display: header.column.getCanSort() ? 'flex' : 'block',
+                                cursor: header.column.getCanSort() ? 'pointer' : 'default',
+                                alignItems: 'center',
+                                justifyContent: header.column.getCanSort()
+                                  ? 'space-between'
+                                  : undefined,
+                              },
 
-                          onClick: header.column.getToggleSortingHandler(),
-                        }}
-                      >
-                        {
-                          flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          ) as ReactNode
-                        }
-                        {{
-                          asc: ChevronUp,
-                          desc: ChevronDown,
-                        }[header.column.getIsSorted() as string] ?? null}
-                        {header.column.getCanSort() && !header.column.getIsSorted()
-                          ? ChevronUpDown
-                          : null}
-                      </div>
-                      {header.column.getCanFilter() ? (
-                        <div>
-                          <Filter
-                            inputComponent={components?.filterInput}
-                            selectComponent={components?.filterSelect}
-                          />
-                        </div>
-                      ) : null}
-                    </>
-                  )}
-                </HeaderCell>
-              ))}
-            </HeaderRow>
+                              onClick: header.column.getToggleSortingHandler(),
+                            }}
+                          >
+                            {
+                              flexRender(
+                                header.column.columnDef.header,
+                                header.getContext()
+                              ) as ReactNode
+                            }
+                            {{
+                              asc: ChevronUp,
+                              desc: ChevronDown,
+                            }[header.column.getIsSorted() as string] ?? null}
+                            {header.column.getCanSort() && !header.column.getIsSorted()
+                              ? ChevronUpDown
+                              : null}
+                          </div>
+                          {header.column.getCanFilter() ? (
+                            <div>
+                              <Filter
+                                inputComponent={components?.filterInput}
+                                selectComponent={components?.filterSelect}
+                              />
+                            </div>
+                          ) : null}
+                        </>
+                      )}
+                    </DynamicComponent>
+                  </HeaderProvider>
+                ))}
+              </DynamicComponent>
+            </HeaderGroupProvider>
           ))}
-        </TableHead>
-        <TableBody renderer={components?.body}>
+        </DynamicComponent>
+        <DynamicComponent tagName="tbody" Renderer={components?.body}>
           {table.getRowModel().rows.length === 0 ? <TableEmpty>no data</TableEmpty> : null}
-          {table.getRowModel().rows.map((row) => {
-            return (
-              <BodyRow key={row.id} renderer={components?.bodyRow} instance={row}>
+          {table.getRowModel().rows.map((row) => (
+            <RowProvider value={row} key={row.id}>
+              <DynamicComponent tagName="tr" Renderer={components?.bodyRow}>
                 {row.getVisibleCells().map((cell) => {
                   return (
-                    <BodyCell key={cell.id} renderer={components?.bodyCell} instance={cell}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext()) as ReactNode}
-                    </BodyCell>
+                    <CellProvider value={cell} key={cell.id}>
+                      <DynamicComponent tagName="td" Renderer={components?.bodyCell}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext()) as ReactNode}
+                      </DynamicComponent>
+                    </CellProvider>
                   );
                 })}
-              </BodyRow>
-            );
-          })}
-        </TableBody>
+              </DynamicComponent>
+            </RowProvider>
+          ))}
+        </DynamicComponent>
         {props.showFooter ? (
-          <TableFoot renderer={components?.footer}>
+          <DynamicComponent tagName="tfoot" Renderer={components?.footer}>
             {table.getFooterGroups().map((footerGroup) => (
-              <FooterRow
-                key={footerGroup.id}
-                renderer={components?.footerRow}
-                instance={footerGroup}
-              >
-                {footerGroup.headers.map((header) => (
-                  <FooterCell key={header.id} renderer={components?.footerCell} instance={header}>
-                    {header.isPlaceholder
-                      ? null
-                      : (flexRender(
-                          header.column.columnDef.footer,
-                          header.getContext()
-                        ) as ReactNode)}
-                  </FooterCell>
-                ))}
-              </FooterRow>
+              <HeaderGroupProvider value={footerGroup} key={footerGroup.id}>
+                <DynamicComponent tagName="tr" Renderer={components?.footerRow}>
+                  {footerGroup.headers.map((header) => (
+                    <HeaderProvider value={header} key={header.id}>
+                      <DynamicComponent tagName="th" Renderer={components?.footerCell}>
+                        {header.isPlaceholder
+                          ? null
+                          : (flexRender(
+                              header.column.columnDef.footer,
+                              header.getContext()
+                            ) as ReactNode)}
+                      </DynamicComponent>
+                    </HeaderProvider>
+                  ))}
+                </DynamicComponent>
+              </HeaderGroupProvider>
             ))}
-          </TableFoot>
+          </DynamicComponent>
         ) : null}
-      </CustomTable>
+      </DynamicComponent>
 
       {props.hidePagination ? null : components?.pagination ? (
         <components.pagination />
