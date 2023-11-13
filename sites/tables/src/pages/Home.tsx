@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Table, type ColumnDef } from 'unstyled-table';
 import { makeData, type Person } from '../lib/makeData';
-import { HeaderCell } from '../components/header-coll';
+import { HeaderCell } from '../components/header-cell';
 
 const columns: ColumnDef<Person>[] = [
   {
